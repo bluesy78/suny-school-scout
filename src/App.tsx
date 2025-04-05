@@ -9,22 +9,14 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-// GitHub Pages uses HashRouter which doesn't need a basename
-// This is kept for reference in case we switch back to BrowserRouter
-const getBasename = () => {
-  return import.meta.env.MODE === "production" ? "/" : "/";
-};
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      {/* Using HashRouter for GitHub Pages compatibility */}
       <HashRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HashRouter>
