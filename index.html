@@ -32,6 +32,13 @@
         text-align: center;
         margin-bottom: 30px;
       }
+      .gradient-text {
+        background: linear-gradient(to right, #036936, #003f87);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: bold;
+      }
       .comparison-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -42,6 +49,11 @@
         border: 1px solid #e0e0e0;
         border-radius: 8px;
         padding: 15px;
+        transition: all 0.3s;
+      }
+      .school-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
       }
       .cobleskill {
         border-left: 4px solid #036936;
@@ -65,6 +77,7 @@
         border: 1px solid #e0e0e0;
         border-radius: 8px;
         padding: 15px;
+        animation: fadeIn 0.5s ease-out forwards;
       }
       .section-title {
         display: flex;
@@ -88,12 +101,14 @@
         border-radius: 5px;
         background: linear-gradient(to right, #036936, #003f87);
         width: 0%;
+        animation: progressAnimate 1.5s ease-out forwards;
       }
       .button-group {
         display: flex;
         justify-content: center;
         gap: 10px;
         margin: 20px 0;
+        flex-wrap: wrap;
       }
       .button {
         padding: 10px 20px;
@@ -101,6 +116,10 @@
         font-weight: bold;
         cursor: pointer;
         transition: all 0.2s;
+      }
+      .button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
       }
       .primary-button {
         background: linear-gradient(to right, #036936, #003f87);
@@ -117,6 +136,145 @@
         color: white;
         border: none;
       }
+      .score-box {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      .score-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      .score-slider {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 15px 0;
+      }
+      .school-slider {
+        flex: 1;
+        height: 8px;
+        background-color: #e0e0e0;
+        border-radius: 4px;
+        position: relative;
+      }
+      .cobleskill-slider {
+        position: absolute;
+        height: 8px;
+        background-color: #036936;
+        border-radius: 4px;
+        width: 50%;
+      }
+      .oswego-slider {
+        position: absolute;
+        height: 8px;
+        background-color: #003f87;
+        border-radius: 4px;
+        width: 50%;
+      }
+      .cost-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+      }
+      .cost-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+      }
+      .cost-value {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin: 10px 0;
+      }
+      .map-container {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        background-color: #f9f9f9;
+        text-align: center;
+      }
+      .map-placeholder {
+        height: 300px;
+        background-color: #e0e0e0;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        font-style: italic;
+      }
+      .decision-tracker {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+      }
+      .tracker-bars {
+        display: flex;
+        height: 30px;
+        border-radius: 15px;
+        overflow: hidden;
+        margin: 20px 0;
+      }
+      .cobleskill-bar {
+        background-color: #036936;
+        height: 100%;
+        width: 50%;
+      }
+      .oswego-bar {
+        background-color: #003f87;
+        height: 100%;
+        width: 50%;
+      }
+      .legend {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .legend-color {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+      }
+      
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      @keyframes progressAnimate {
+        0% {
+          width: 0%;
+        }
+        100% {
+          width: 30%;
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .comparison-grid {
+          grid-template-columns: 1fr;
+        }
+        .button-group {
+          flex-direction: column;
+        }
+      }
     </style>
   </head>
 
@@ -125,10 +283,10 @@
       <!-- Fallback static content for GitHub Pages -->
       <div class="container">
         <div class="header">
-          <h1>SUNY School Scout</h1>
-          <p>Compare SUNY Cobleskill and SUNY Oswego to find your perfect college match</p>
+          <h1 class="gradient-text">SUNY College Comparison Checklist</h1>
+          <p>Your guide to comparing SUNY Cobleskill and SUNY Oswego</p>
           <div class="progress-container">
-            <div class="progress-bar" style="width: 30%;"></div>
+            <div class="progress-bar"></div>
           </div>
         </div>
         
@@ -163,11 +321,21 @@
             <div class="school-card cobleskill">
               <div class="school-title">SUNY Cobleskill</div>
               <p>Five residence halls with options from traditional dorms to suite-style living in a rural setting with close-knit community feel.</p>
+              <ul>
+                <li><strong>Traditional Residence Halls</strong> - Pearson, Fake, and Dix Halls offer standard double rooms with shared bathrooms.</li>
+                <li><strong>Suite-Style Living</strong> - Vroman Hall features four-person suites with shared living areas.</li>
+                <li><strong>Alumni Commons</strong> - Apartment-style housing with full kitchens for upperclassmen.</li>
+              </ul>
             </div>
             
             <div class="school-card oswego">
               <div class="school-title">SUNY Oswego</div>
               <p>13 residence halls including themed living communities and lakeside residence halls with stunning views of Lake Ontario.</p>
+              <ul>
+                <li><strong>Lakeside Halls</strong> - Scales, Waterbury, and Johnson Halls offer premium views of Lake Ontario.</li>
+                <li><strong>Themed Living Communities</strong> - Special interest housing for honors, global studies, arts, and STEM.</li>
+                <li><strong>The Village Townhouses</strong> - Modern apartment-style units with private bedrooms and full kitchens.</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -178,11 +346,139 @@
             <div class="school-card cobleskill">
               <div class="school-title">SUNY Cobleskill</div>
               <p>Intimate rural campus with strong agriculture and nature-focused activities and traditions. Over 50 clubs and organizations.</p>
+              <ul>
+                <li><strong>Student Clubs</strong> - Over 50 clubs with emphasis on agricultural and outdoor activities.</li>
+                <li><strong>Campus Events</strong> - Annual Ag High School Day, Culinary Competitions, and Fall Livestock Show.</li>
+                <li><strong>Athletics</strong> - NCAA Division III athletics with 19 varsity teams.</li>
+              </ul>
             </div>
             
             <div class="school-card oswego">
               <div class="school-title">SUNY Oswego</div>
               <p>Vibrant lakeside campus with diverse cultural events and strong school spirit traditions. Over 200 clubs and organizations.</p>
+              <ul>
+                <li><strong>Student Clubs</strong> - Over 200 clubs covering diverse interests from cultural groups to academic societies.</li>
+                <li><strong>Campus Events</strong> - ALANA Cultural Festival, OzFest spring celebration, and Division III hockey games.</li>
+                <li><strong>Athletics</strong> - NCAA Division III athletics with 24 varsity teams.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="comparison-section">
+          <div class="section-title"><span>🌎</span> Location & Environment</div>
+          <div class="comparison-grid">
+            <div class="school-card cobleskill">
+              <div class="school-title">SUNY Cobleskill</div>
+              <p>Rural setting in the Schoharie Valley with a close-knit community atmosphere and natural surroundings.</p>
+              <ul>
+                <li><strong>Campus Setting</strong> - 782-acre campus with farm facilities and woodland areas.</li>
+                <li><strong>Surrounding Area</strong> - Small town with easy access to outdoor recreation; 45 minutes from Albany.</li>
+                <li><strong>Weather</strong> - Four distinct seasons with cold winters and mild summers.</li>
+              </ul>
+            </div>
+            
+            <div class="school-card oswego">
+              <div class="school-title">SUNY Oswego</div>
+              <p>Lakeside campus with beautiful water views and a mix of suburban and small-city environment.</p>
+              <ul>
+                <li><strong>Campus Setting</strong> - 700-acre campus on Lake Ontario with over a mile of shoreline.</li>
+                <li><strong>Surrounding Area</strong> - Small city with shopping and dining options; 40 minutes from Syracuse.</li>
+                <li><strong>Weather</strong> - Four seasons with significant lake-effect snow in winter (100+ inches annually).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="comparison-section">
+          <div class="section-title"><span>💰</span> Cost & Financial Aid</div>
+          <div class="comparison-grid">
+            <div class="school-card cobleskill">
+              <div class="school-title">SUNY Cobleskill</div>
+              <p>State tuition rates with various scholarship options focused on agricultural and technical fields.</p>
+              <ul>
+                <li><strong>Tuition & Fees</strong> - Standard SUNY in-state tuition ($7,070/year) plus fees.</li>
+                <li><strong>Housing & Meals</strong> - Housing costs range from $7,800-$8,600 per year.</li>
+                <li><strong>Financial Aid</strong> - 95% of students receive some form of financial aid.</li>
+              </ul>
+            </div>
+            
+            <div class="school-card oswego">
+              <div class="school-title">SUNY Oswego</div>
+              <p>Standard SUNY tuition with variety of merit and need-based scholarships and strong alumni support.</p>
+              <ul>
+                <li><strong>Tuition & Fees</strong> - Standard SUNY in-state tuition ($7,070/year) plus fees.</li>
+                <li><strong>Housing & Meals</strong> - Housing costs range from $8,800-$9,700 per year depending on hall.</li>
+                <li><strong>Financial Aid</strong> - 80% of students receive financial aid.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <h2 class="text-xl font-semibold mt-8 mb-4">Your School Ratings</h2>
+        <div class="score-box">
+          <div class="score-title">Academic Program Quality</div>
+          <p>Rate each school based on program quality, faculty expertise, and academic resources that align with your goals.</p>
+          <div class="score-slider">
+            <div>Cobleskill</div>
+            <div class="school-slider">
+              <div class="cobleskill-slider"></div>
+            </div>
+          </div>
+          <div class="score-slider">
+            <div>Oswego</div>
+            <div class="school-slider">
+              <div class="oswego-slider"></div>
+            </div>
+          </div>
+        </div>
+        
+        <h2 class="text-xl font-semibold mt-8 mb-4">Additional Decision Factors</h2>
+        
+        <div class="comparison-section">
+          <div class="section-title"><span>💵</span> Cost Comparison</div>
+          <div class="cost-grid">
+            <div class="cost-card">
+              <h3>Tuition (In-State)</h3>
+              <div class="cost-value">$7,070</div>
+              <p>Per year for both schools</p>
+            </div>
+            <div class="cost-card">
+              <h3>Housing (Cobleskill)</h3>
+              <div class="cost-value">$7,800-$8,600</div>
+              <p>Per academic year</p>
+            </div>
+            <div class="cost-card">
+              <h3>Housing (Oswego)</h3>
+              <div class="cost-value">$8,800-$9,700</div>
+              <p>Per academic year</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="map-container">
+          <h3>School Locations</h3>
+          <p>Compare travel distances from your home to each campus</p>
+          <div class="map-placeholder">
+            <p>Interactive map available in full application</p>
+          </div>
+        </div>
+        
+        <div class="decision-tracker">
+          <h3>Decision Tracker</h3>
+          <p>Based on your ratings, here's how the schools compare overall:</p>
+          <div class="tracker-bars">
+            <div class="cobleskill-bar"></div>
+            <div class="oswego-bar"></div>
+          </div>
+          <div class="legend">
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #036936;"></div>
+              <div>SUNY Cobleskill</div>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color" style="background-color: #003f87;"></div>
+              <div>SUNY Oswego</div>
             </div>
           </div>
         </div>
